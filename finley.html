@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Change Enablement Agent</title>
+  <link rel="stylesheet" href="finley-style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Change Enablement Agent</h1>
+    <p class="subtitle">Trevor Finley</p>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>Submit a Proposed IT Change</h2>
+      <form id="change-form" novalidate>
+
+        <div class="form-group">
+          <label for="change-description">Change Description</label>
+          <textarea
+            id="change-description"
+            name="change-description"
+            rows="5"
+            placeholder="Describe the change being proposed..."
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="affected-system">Affected System</label>
+          <select id="affected-system" name="affected-system" required>
+            <option value="">-- Select a system --</option>
+            <option value="ERP">ERP (Enterprise Resource Planning)</option>
+            <option value="CRM">CRM (Customer Relationship Management)</option>
+            <option value="Network Infrastructure">Network Infrastructure</option>
+            <option value="Cloud Platform">Cloud Platform (AWS / Azure / GCP)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <fieldset>
+            <legend>Is the service currently down?</legend>
+            <label class="radio-label">
+              <input type="radio" name="service-down" value="yes" required /> Yes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="service-down" value="no" /> No
+            </label>
+          </fieldset>
+        </div>
+
+        <div class="form-group">
+          <fieldset>
+            <legend>Is this a pre-approved change model?</legend>
+            <label class="radio-label">
+              <input type="radio" name="pre-approved" value="yes" required /> Yes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="pre-approved" value="no" /> No
+            </label>
+          </fieldset>
+        </div>
+
+        <button type="submit" id="submit-btn">Assess Change</button>
+      </form>
+    </section>
+
+    <!-- Results: hidden until form is submitted -->
+    <section id="results-section" class="results-section hidden">
+      <h2>Assessment Results</h2>
+
+      <!-- Classification -->
+      <div class="result-card" id="classification-card">
+        <h3>Change Classification</h3>
+        <p id="classification-output" class="classification-badge"></p>
+      </div>
+
+      <!-- Risk dimension sliders (Normal changes only) -->
+      <div class="result-card hidden" id="risk-sliders-card">
+        <h3>Risk Dimension Assessment</h3>
+        <p class="helper-text">Adjust each slider to reflect the risk level (1 = Low, 5 = High), then calculate your score.</p>
+
+        <div class="slider-group">
+          <label for="dim-impact">
+            Impact Scope
+            <span class="dim-desc">Single non-critical component (1) &rarr; Multiple critical business services (5)</span>
+          </label>
+          <div class="slider-row">
+            <input type="range" id="dim-impact" min="1" max="5" step="1" value="3" />
+            <span class="slider-value" id="val-impact">3</span>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <label for="dim-complexity">
+            Complexity
+            <span class="dim-desc">Single config change (1) &rarr; Multi-system orchestrated deployment (5)</span>
+          </label>
+          <div class="slider-row">
+            <input type="range" id="dim-complexity" min="1" max="5" step="1" value="3" />
+            <span class="slider-value" id="val-complexity">3</span>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <label for="dim-reversibility">
+            Reversibility
+            <span class="dim-desc">Instant automated rollback (1) &rarr; Irreversible change (5)</span>
+          </label>
+          <div class="slider-row">
+            <input type="range" id="dim-reversibility" min="1" max="5" step="1" value="3" />
+            <span class="slider-value" id="val-reversibility">3</span>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <label for="dim-testing">
+            Testing Confidence
+            <span class="dim-desc">Full automated test coverage (1) &rarr; No test environment available (5)</span>
+          </label>
+          <div class="slider-row">
+            <input type="range" id="dim-testing" min="1" max="5" step="1" value="3" />
+            <span class="slider-value" id="val-testing">3</span>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <label for="dim-history">
+            Deployment History
+            <span class="dim-desc">Identical change succeeded 10x (1) &rarr; First-of-its-kind change (5)</span>
+          </label>
+          <div class="slider-row">
+            <input type="range" id="dim-history" min="1" max="5" step="1" value="3" />
+            <span class="slider-value" id="val-history">3</span>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <label for="dim-timing">
+            Timing Sensitivity
+            <span class="dim-desc">Off-peak low-traffic window (1) &rarr; Peak hours / launch day (5)</span>
+          </label>
+          <div class="slider-row">
+            <input type="range" id="dim-timing" min="1" max="5" step="1" value="3" />
+            <span class="slider-value" id="val-timing">3</span>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <label for="dim-dependencies">
+            Dependency Count
+            <span class="dim-desc">Zero external dependencies (1) &rarr; 5+ teams / external vendors (5)</span>
+          </label>
+          <div class="slider-row">
+            <input type="range" id="dim-dependencies" min="1" max="5" step="1" value="3" />
+            <span class="slider-value" id="val-dependencies">3</span>
+          </div>
+        </div>
+
+        <button type="button" id="calc-risk-btn">Calculate Risk Score</button>
+      </div>
+
+      <!-- Risk score and tier -->
+      <div class="result-card hidden" id="risk-score-card">
+        <h3>Risk Score</h3>
+        <p>Composite Score: <strong id="composite-score"></strong></p>
+        <p>Risk Tier: <span id="risk-tier" class="risk-tier-badge"></span></p>
+      </div>
+
+      <!-- Approval path -->
+      <div class="result-card" id="approval-card">
+        <h3>Recommended Approval Path</h3>
+        <div id="approval-output"></div>
+      </div>
+
+      <!-- Mitigation checklist -->
+      <div class="result-card" id="mitigation-card">
+        <h3>Risk Mitigation Checklist</h3>
+        <ul class="checklist">
+          <li><label><input type="checkbox" /> <strong>Rollback plan:</strong> Documented, tested, estimated duration</label></li>
+          <li><label><input type="checkbox" /> <strong>Validation criteria:</strong> How will you confirm the change succeeded?</label></li>
+          <li><label><input type="checkbox" /> <strong>Monitoring:</strong> Dashboards/alerts configured for affected services</label></li>
+          <li><label><input type="checkbox" /> <strong>Communication plan:</strong> Stakeholders notified, maintenance window published</label></li>
+          <li><label><input type="checkbox" /> <strong>Fallback contacts:</strong> On-call engineers identified for escalation</label></li>
+        </ul>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>ITSCM 451 &mdash; Change Enablement Agent &mdash; Trevor Finley</p>
+  </footer>
+
+  <script src="finley-logic.js"></script>
+</body>
+</html>

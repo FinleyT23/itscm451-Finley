@@ -1,0 +1,482 @@
+/* ============================================================
+   finley-style.css — Change Enablement Agent
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Navy + blue palette */
+  --navy:          #0f172a;
+  --navy-mid:      #1e3a5f;
+  --blue:          #1d4ed8;
+  --blue-light:    #3b82f6;
+  --blue-pale:     #dbeafe;
+
+  /* Neutrals */
+  --bg:            #f1f5f9;
+  --surface:       #ffffff;
+  --border:        #cbd5e1;
+  --text:          #0f172a;
+  --muted:         #64748b;
+
+  /* Status colors */
+  --green-bg:      #dcfce7;
+  --green-text:    #15803d;
+  --orange-bg:     #ffedd5;
+  --orange-text:   #c2410c;
+  --red-bg:        #fee2e2;
+  --red-text:      #b91c1c;
+
+  /* Classification colors */
+  --standard-bg:   #d1fae5;
+  --standard-text: #065f46;
+  --normal-bg:     #dbeafe;
+  --normal-text:   #1e40af;
+  --emergency-bg:  #fee2e2;
+  --emergency-text:#991b1b;
+
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 14px;
+  --shadow:    0 2px 10px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 4px 20px rgba(15, 23, 42, 0.12);
+}
+
+/* ── Base ────────────────────────────────────────────────── */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  color: #fff;
+  padding: 2.5rem 1.5rem 2rem;
+  text-align: center;
+  border-bottom: 4px solid var(--blue-light);
+}
+
+header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.35rem;
+}
+
+header .subtitle {
+  font-size: 1.05rem;
+  color: #93c5fd;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ── Main layout ─────────────────────────────────────────── */
+main {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Section headings ────────────────────────────────────── */
+.form-section h2,
+.results-section h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--navy);
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--blue-pale);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Form card ───────────────────────────────────────────── */
+.form-section {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  border-top: 4px solid var(--blue);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label,
+.form-group legend {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.form-group fieldset {
+  border: none;
+  padding: 0;
+}
+
+/* ── Text inputs ─────────────────────────────────────────── */
+textarea,
+select {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.97rem;
+  font-family: inherit;
+  color: var(--text);
+  background: #f8fafc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.5rem;
+}
+
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
+  background: #fff;
+}
+
+/* ── Radio buttons ───────────────────────────────────────── */
+.radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-right: 1.75rem;
+  font-weight: 400;
+  font-size: 0.97rem;
+  cursor: pointer;
+  padding: 0.35rem 0;
+}
+
+.radio-label input[type="radio"] {
+  accent-color: var(--blue);
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.75rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  letter-spacing: 0.2px;
+}
+
+#submit-btn {
+  background: var(--blue);
+  color: #fff;
+  width: 100%;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(29, 78, 216, 0.3);
+}
+
+#submit-btn:hover {
+  background: #1e40af;
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.4);
+}
+
+#calc-risk-btn {
+  background: var(--navy-mid);
+  color: #fff;
+  margin-top: 1.25rem;
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.3);
+}
+
+#calc-risk-btn:hover {
+  background: var(--navy);
+  box-shadow: 0 4px 14px rgba(30, 58, 95, 0.4);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* ── Results section ─────────────────────────────────────── */
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.results-section h2 {
+  color: var(--navy);
+}
+
+/* ── Result cards ────────────────────────────────────────── */
+.result-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1.5rem 1.75rem;
+  border-left: 4px solid var(--blue-light);
+}
+
+.result-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy-mid);
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 0.85rem;
+}
+
+/* ── Classification badge ────────────────────────────────── */
+.classification-badge {
+  display: inline-block;
+  padding: 0.5rem 1.4rem;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.badge-standard  { background: var(--standard-bg);  color: var(--standard-text); }
+.badge-normal    { background: var(--normal-bg);    color: var(--normal-text); }
+.badge-emergency { background: var(--emergency-bg); color: var(--emergency-text); }
+
+/* ── Risk tier badge ─────────────────────────────────────── */
+.risk-tier-badge {
+  display: inline-block;
+  padding: 0.35rem 1.1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.97rem;
+}
+
+.tier-low    { background: var(--green-bg);  color: var(--green-text); }
+.tier-medium { background: var(--orange-bg); color: var(--orange-text); }
+.tier-high   { background: var(--red-bg);    color: var(--red-text); }
+
+/* ── Risk score card ─────────────────────────────────────── */
+#risk-score-card {
+  border-left-color: var(--navy-mid);
+}
+
+#risk-score-card p {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+#composite-score {
+  font-size: 1.4rem;
+  color: var(--navy);
+}
+
+/* ── Sliders ─────────────────────────────────────────────── */
+#risk-sliders-card {
+  border-left-color: var(--navy-mid);
+}
+
+.helper-text {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.slider-group {
+  margin-bottom: 1.35rem;
+  padding-bottom: 1.35rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.slider-group:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.slider-group > label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--navy);
+  margin-bottom: 0.25rem;
+}
+
+.dim-desc {
+  display: block;
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slider-row input[type="range"] {
+  flex: 1;
+  height: 6px;
+  accent-color: var(--blue);
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.slider-value {
+  min-width: 1.8rem;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--blue);
+  background: var(--blue-pale);
+  border-radius: var(--radius-sm);
+  padding: 0.1rem 0.4rem;
+}
+
+/* ── Approval path ───────────────────────────────────────── */
+#approval-card {
+  border-left-color: var(--green-text);
+}
+
+#approval-output ol,
+#approval-output ul {
+  padding-left: 1.4rem;
+  margin-top: 0.5rem;
+}
+
+#approval-output li {
+  margin-bottom: 0.45rem;
+  color: var(--text);
+  font-size: 0.97rem;
+}
+
+#approval-output .lead-time {
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+#approval-output p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ── Mitigation checklist ────────────────────────────────── */
+#mitigation-card {
+  border-left-color: var(--orange-text);
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+}
+
+.checklist li {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.checklist li:last-child {
+  border-bottom: none;
+}
+
+.checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  cursor: pointer;
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+
+.checklist label:hover {
+  color: var(--blue);
+}
+
+.checklist input[type="checkbox"] {
+  margin-top: 0.25rem;
+  accent-color: var(--blue);
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.checklist input[type="checkbox"]:checked + strong,
+.checklist input[type="checkbox"]:checked ~ * {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+/* ── Utility ─────────────────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+footer {
+  background: var(--navy);
+  color: #94a3b8;
+  text-align: center;
+  padding: 1.1rem 1rem;
+  font-size: 0.85rem;
+  margin-top: auto;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  header {
+    padding: 1.75rem 1rem 1.5rem;
+  }
+
+  .form-section,
+  .result-card {
+    padding: 1.25rem 1.1rem;
+  }
+
+  main {
+    margin: 1.25rem auto;
+  }
+
+  #submit-btn,
+  #calc-risk-btn {
+    font-size: 0.95rem;
+    padding: 0.7rem 1.25rem;
+  }
+
+  .radio-label {
+    margin-right: 1.1rem;
+  }
+}
